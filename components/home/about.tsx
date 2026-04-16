@@ -1,37 +1,39 @@
 import { ShieldCheck, ArrowRight, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
+import { readAboutSection } from "@/services/home";
 
-const aboutSection = {
-  heading: "About Our Firm",
-  subheading: "Trusted legal experts with a commitment to justice and client success.",
-  description:
-    "We are a professional law firm specializing in criminal, civil, family, property, and corporate law. With years of experience, we provide reliable legal solutions with integrity and dedication.",
-  stats: [
-    { label: "Years Experience", value: "10+" },
-    { label: "Cases Won", value: "500+" },
-  ],
-  cta: {
-    label: "Learn More",
-    link: "/about",
-  },
-   highlights : [
-  "Client-first approach in every case",
-  "Transparent communication throughout",
-  "Proven track record of results",
-]
-};
+interface Stat {
+  label: string;
+  value: string;
+}
 
-const highlights = [
-  "Client-first approach in every case",
-  "Transparent communication throughout",
-  "Proven track record of results",
-];
+interface Cta {
+  label: string;
+  link: string;
+}
 
-export default function AboutSection() {
-  const { heading, subheading, description, stats, cta } = aboutSection;
+interface AboutSectionData {
+  heading: string;
+  subheading: string;
+  badge: string;
+  description: string;
+  stats: Stat[];
+  cta: Cta;
+  highlights: string[];
+}
+
+export default async function AboutSection() {
+  const aboutData = await readAboutSection();
+
+  if (!aboutData) return null;
+
+  const { heading, subheading, badge, description, stats, cta, highlights } = aboutData;
 
   return (
-    <section className="bg-white py-20 px-6">
+    <section 
+      className="bg-white py-20 px-6"
+      aria-label="About section"
+    >
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col lg:flex-row items-center gap-14 lg:gap-20">
 
@@ -40,15 +42,30 @@ export default function AboutSection() {
             <div className="relative">
 
               {/* Decorative frame */}
-              <div className="absolute -top-3 -left-3 w-full h-full border-2 border-[#0a2240]/10 rounded-2xl z-0" />
+              <div 
+                className="absolute -top-3 -left-3 w-full h-full border-2 border-[#0a2240]/10 rounded-2xl z-0" 
+                aria-hidden="true"
+              />
 
               {/* Main card */}
-              <div className="relative z-10 bg-[#0a2240] rounded-2xl p-8 flex flex-col gap-8">
+              <div 
+                className="relative z-10 bg-[#0a2240] rounded-2xl p-8 flex flex-col gap-8"
+                role="complementary"
+                aria-label="Firm statistics and highlights"
+              >
 
                 {/* Stats row */}
-                <div className="flex gap-6">
+                <div 
+                  className="flex gap-6"
+                  role="list"
+                  aria-label="Key statistics"
+                >
                   {stats.map((stat) => (
-                    <div key={stat.label} className="flex-1 border-l-2 border-[#c9a84c] pl-4">
+                    <div 
+                      key={stat.label} 
+                      className="flex-1 border-l-2 border-[#c9a84c] pl-4"
+                      role="listitem"
+                    >
                       <p className="text-4xl font-bold text-white font-serif leading-none mb-1">
                         {stat.value}
                       </p>
@@ -60,13 +77,27 @@ export default function AboutSection() {
                 </div>
 
                 {/* Divider */}
-                <div className="w-full h-px bg-white/10" />
+                <div 
+                  className="w-full h-px bg-white/10" 
+                  aria-hidden="true"
+                />
 
                 {/* Highlights */}
-                <div className="flex flex-col gap-3">
+                <div 
+                  className="flex flex-col gap-3"
+                  role="list"
+                  aria-label="Firm highlights"
+                >
                   {highlights.map((item) => (
-                    <div key={item} className="flex items-center gap-3">
-                      <CheckCircle2 className="w-4 h-4 text-[#c9a84c] flex-shrink-0" />
+                    <div 
+                      key={item} 
+                      className="flex items-center gap-3"
+                      role="listitem"
+                    >
+                      <CheckCircle2 
+                        className="w-4 h-4 text-[#c9a84c] shrink-0" 
+                        aria-hidden="true"
+                      />
                       <span className="text-sm text-white/70">{item}</span>
                     </div>
                   ))}
@@ -80,9 +111,13 @@ export default function AboutSection() {
           <div className="flex-1 flex flex-col gap-6 max-w-xl">
 
             {/* Badge */}
-            <span className="inline-flex items-center gap-2 text-sm font-semibold px-4 py-1.5 rounded-full tracking-wide uppercase bg-[#0a2240]/10 text-[#0a2240] self-start">
-              <ShieldCheck className="w-4 h-4" />
-              About Us
+            <span 
+              className="inline-flex items-center gap-2 text-sm font-semibold px-4 py-1.5 rounded-full tracking-wide uppercase bg-[#0a2240]/10 text-[#0a2240] self-start"
+              role="status"
+              aria-label="About section badge"
+            >
+              <ShieldCheck className="w-4 h-4" aria-hidden="true" />
+              {badge}
             </span>
 
             {/* Heading */}
@@ -90,7 +125,10 @@ export default function AboutSection() {
               <h2 className="text-4xl lg:text-5xl font-bold text-[#0a2240] leading-tight mb-4 font-serif">
                 {heading}
               </h2>
-              <div className="w-16 h-0.5 bg-[#0a2240] mb-5 rounded-full" />
+              <div 
+                className="w-16 h-0.5 bg-[#0a2240] mb-5 rounded-full" 
+                aria-hidden="true"
+              />
             </div>
 
             {/* Subheading */}
@@ -107,9 +145,13 @@ export default function AboutSection() {
             <Link
               href={cta.link}
               className="group inline-flex items-center gap-2.5 self-start px-6 py-3.5 rounded-xl font-semibold text-base bg-[#0a2240] text-white border-2 border-[#0a2240] no-underline transition-all duration-300 hover:bg-[#0e2f5a] hover:shadow-lg hover:shadow-[#0a2240]/20 hover:-translate-y-0.5 active:translate-y-0"
+              aria-label={`${cta.label} about our firm`}
             >
               {cta.label}
-              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+              <ArrowRight 
+                className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" 
+                aria-hidden="true"
+              />
             </Link>
 
           </div>
