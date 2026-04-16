@@ -1,0 +1,150 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+
+backend:
+  name: github
+  repo: abdullah-rajpoot01/real-estate-data
+
+media_folder: /public/media
+public_folder: /media
+
+collections:
+  - name: hero_section
+    label: Hero Section
+    files:
+      - name: hero_section
+        label: Hero Section Content
+        file: /content/hero-section.json
+        fields:
+          - label: Heading
+            name: heading
+            widget: string
+            default: "Trusted Legal Experts You Can Rely On"
+
+          - label: Subheading
+            name: subheading
+            widget: string
+            default: "Professional legal services in all major practice areas."
+
+          - label: Phone
+            name: phone
+            widget: string
+            default: "+92XXXXXXXXXX"
+
+          - label: WhatsApp
+            name: whatsapp
+            widget: string
+            default: "+92XXXXXXXXXX"
+
+          - label: Hero Image
+            name: image
+            widget: image
+            default: "/media/lawyer-hero.jpg"
+
+          - label: Card Title
+            name: cardTitle
+            widget: string
+            default: "10+ Years Experience"
+
+          - label: Card Description
+            name: cardDescription
+            widget: string
+            default: "Trusted legal support with proven results."
+  - name: practice_areas_section
+    label: Practice Areas Section
+    files:
+      - name: practice_areas
+        label: Practice Areas Content
+        file: /content/practice-areas.json
+        fields:
+          - label: Heading
+            name: heading
+            widget: string
+            default: "Our Practice Areas"
+
+          - label: Subheading
+            name: subheading
+            widget: string
+            default: "We provide expert legal services across multiple fields of law."
+
+          - label: Areas
+            name: areas
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - label: Title
+                name: title
+                widget: string
+
+              - label: Description
+                name: description
+                widget: text
+
+              - label: Link
+                name: link
+                widget: string
+  - name: about_section
+    label: About Section
+    files:
+      - name: about
+        label: About Content
+        file: /content/about.json
+        fields:
+          - label: Heading
+            name: heading
+            widget: string
+            default: "About Our Firm"
+
+          - label: Subheading
+            name: subheading
+            widget: string
+            default: "Trusted legal experts with a commitment to justice and client success."
+
+          - label: Description
+            name: description
+            widget: text
+            default: "We are a professional law firm specializing in criminal, civil, family, property, and corporate law. With years of experience, we provide reliable legal solutions with integrity and dedication."
+
+          - label: Stats
+            name: stats
+            widget: list
+            summary: "{{fields.label}} - {{fields.value}}"
+            default:
+              - label: "Years Experience"
+                value: "10+"
+              - label: "Cases Won"
+                value: "500+"
+            fields:
+              - label: Label
+                name: label
+                widget: string
+
+              - label: Value
+                name: value
+                widget: string
+
+          - label: CTA
+            name: cta
+            widget: object
+            default:
+              label: "Learn More"
+              link: "/about"
+            fields:
+              - label: Button Label
+                name: label
+                widget: string
+
+              - label: Link
+                name: link
+                widget: string
+
+          - label: Highlights
+            name: highlights
+            widget: list
+            default:
+              - "Client-first approach in every case"
+              - "Transparent communication throughout"
+              - "Proven track record of results"
+            field:
+              label: Highlight
+              name: highlight
+              widget: string
