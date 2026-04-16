@@ -98,3 +98,33 @@ export async function readAboutSection(): Promise<AboutSection | null> {
     return null;
   }
 }
+
+
+interface Point {
+  title: string;
+  description: string;
+}
+
+interface WhyChooseUsSection {
+  heading: string;
+  subheading: string;
+  badge: string;
+  points: Point[];
+}
+
+/** 
+ * Reads and automatically parses the why choose us section configuration from a JSON file
+ * @returns Promise with the parsed why choose us section data or null if error occurs
+ */
+export async function readWhyChooseUsSection(): Promise<WhyChooseUsSection | null> {
+  // Use path.join to ensure correct pathing relative to project root
+  const filePath = path.join(process.cwd(), 'data', 'home', 'why_choose_us_section.json');
+  
+  try {
+    // readJson handles both reading the file and JSON.parse() internally
+    return await fs.readJson(filePath);
+  } catch (error) {
+    console.error("Error reading why choose us section:", error);
+    return null;
+  }
+}
