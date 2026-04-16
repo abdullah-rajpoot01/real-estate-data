@@ -1,0 +1,11 @@
+{
+  "heading": "Our Practice Areas",
+  "subheading": "We provide expert legal services across multiple fields of law.",
+  "areas": [
+    {
+      "title": "Criminal Law",
+      "description": "Defense in criminal cases with strong legal representation.",
+      "link": "/criminal-law"
+    }
+  ]
+}
